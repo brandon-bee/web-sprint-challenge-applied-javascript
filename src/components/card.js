@@ -25,7 +25,7 @@ const Card = (article) => {
     console.log(headlineDiv.textContent);
   })
 
-  return cardDiv; 
+  return cardDiv;
 }
 
 const cardAppender = (selector) => {
@@ -41,6 +41,7 @@ const cardAppender = (selector) => {
     .then(resp => {
       const articles = resp.data.articles;
       const entryPoint = document.querySelector(selector);
+      console.log(articles);
       Object.keys(articles).forEach(key => {
         for(let i = 0; i < articles[key].length; i++) {
           entryPoint.appendChild(Card(articles[key][i]));
