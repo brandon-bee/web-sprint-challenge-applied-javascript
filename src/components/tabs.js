@@ -1,18 +1,8 @@
 import axios from 'axios';
 
-let arr;
-axios.get('http://localhost:5000/api/topics')
-  .then(resp => {
-    arr = resp.data.topics;
-    // console.log(arr[0]);
-  })
-  .catch(error => {
-    console.error(error);
-  })
-  .finally(() => console.log('DONE'));
 
 
-const Tabs = (topicsArr) => {
+const Tabs = (topics) => {
   // TASK 3
   // ---------------------
   // Implement this function which takes an array of strings ("topics") as its only argument.
@@ -31,12 +21,12 @@ const Tabs = (topicsArr) => {
 
   topicsDiv.classList.add('topics');
 
-  topicsArr.forEach(elem => {
+  for(let i = 0; i < topics.length; i++) {
     const tabDiv = document.createElement('div');
     tabDiv.classList.add('tab');
-    tabDiv.textContent = elem;
+    tabDiv.textContent = topics[i];
     topicsDiv.appendChild(tabDiv);
-  });
+  }
 
   return topicsDiv;
 }
@@ -49,8 +39,18 @@ const tabsAppender = (selector) => {
   // Find the array of topics inside the response, and create the tabs using the Tabs component.
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
   //
-  // const entryPoint = document.querySelector(selector);
-  // entryPoint.appendChild(Tabs(arr));
+  axios.get('http://localhost:5000/api/topics')
+    .then(resp => {
+      const arr = resp.data.topics;
+      const entryPoint = document.querySelector(selector);
+      entryPoint.appendChild(Tabs(arr));
+    })
+    .catch(error => {
+      console.error(error);
+    })
+    .finally(() => {
+      console.log('DONE');
+    });
 }
 
 export { Tabs, tabsAppender }
