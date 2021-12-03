@@ -22,6 +22,12 @@ const Header = (title, date, temp) => {
   headerTitle.textContent = title;
   tempSpan.classList.add('temp');
   tempSpan.textContent = temp;
+
+  headerDiv.appendChild(dateSpan);
+  headerDiv.appendChild(headerTitle);
+  headerDiv.appendChild(tempSpan);
+
+  return headerDiv;
 }
 
 const headerAppender = (selector) => {
